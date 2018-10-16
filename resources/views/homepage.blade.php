@@ -2,9 +2,45 @@
 <html>
 <head>
 	<title>PHP Test</title>
-	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			fetch_stock_data(); // 
+			/*
+			*	The function helps return data in Stock table
+			*   (if dataQuery is not blank, the function returns some
+			*    data and display on browser).
+			*/
+		  	function fetch_stock_data(dataQuery = '')
+		  	{
+			    $.ajax({
+			    	// Request is sent to method searchDB in route "db_search"
+			      	url:"{{ route('db_search.searchDB') }}",
+			      	method:'GET', 
+			      	data:{dataQuery:dataQuery},
+			      	dataType:'json', // Data received in JSON type
+			      	/*
+			      	*	This funnction will call if request is received successfully
+			      	*/
+			      	success:function(data)
+			      	{
+			      		// Display data in "tbody" html element.
+			        	$('tbody').html(data.stock_data); 
+			        	$('#total_records').text(data.total);
+			      	}
+			    })
+		  	}
+
+
+		  	$(document).on('keyup', '#search', function(){
+		    	var dataQuery = $(this).val();
+		    	fetch_stock_data(dataQuery);
+		  	});
+		});
+	</script>
 </head>
 <body>
 	<div class="container box">
@@ -38,29 +74,3 @@
 </body>
 </html>
 
-<script>
-$(document).ready(function(){
-
-	fetch_stock_data();
-
-  	function fetch_stock_data(dataQuery = '')
-  	{
-	    $.ajax({
-	      	url:"{{ route('db_search.searchDB') }}",
-	      	method:'GET',
-	      	data:{dataQuery:dataQuery},
-	      	dataType:'json',
-	      	success:function(data)
-	      	{
-	        	$('tbody').html(data.stock_data);
-	        	$('#total_records').text(data.total);
-	      	}
-	    })
-  	}
-
-  	$(document).on('keyup', '#search', function(){
-    	var dataQuery = $(this).val();
-    	fetch_stock_data(dataQuery);
-  	});
-});
-</script>
