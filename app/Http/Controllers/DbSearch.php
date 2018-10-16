@@ -17,16 +17,16 @@ class DbSearch extends Controller
     	if($request->ajax())
 		{
 			$display = '';
-			$query = $request->get('query');
+			$query = $request->get('dataQuery');
 			if($query != '')
 			{
 			$obj = DB::table('stock')
 				->where('Name', 'like', '%'.$query.'%')
-				->orWhere('Price', '=', '%'.$query.'%')
-				->orWhere('Bedrooms', '=', '%'.$query.'%')
-				->orWhere('Bathrooms', '=', '%'.$query.'%')
-				->orWhere('Storeys', '=', '%'.$query.'%')
-				->orWhere('Garages', '=', '%'.$query.'%')
+				->orWhere('Price', '=', $query)
+				->orWhere('Bedrooms', '=', $query)
+				->orWhere('Bathrooms', '=', $query)
+				->orWhere('Storeys', '=', $query)
+				->orWhere('Garages', '=', $query)
 				->get();
 			}else{
 				$obj = DB::table('stock')->get();

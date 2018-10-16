@@ -7,30 +7,29 @@
 	<script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-	<br />
 	<div class="container box">
-		<h3 align="center">PHP Laravel Search</h3><br />
+		<h1 align="center" style="color: blue">PHP Laravel Search Test</h1><br />
 		<div class="panel panel-default">
-			<div class="panel-heading">Search Customer Data</div>
+			<div class="panel-heading" style="color: blue; font-weight: bold">Search by any data fields</div>
 			<div class="panel-body">
 				<div class="form-group">
-					<input type="text" name="search" id="search" class="form-control" placeholder="Search Customer Data" />
+					<input type="text" name="search" id="search" class="form-control" placeholder="Enter your data" />
 				</div>
 				<div class="table-responsive">
-					<h3 align="center">Total Data : <span id="total_records"></span></h3>
+					<br /><hr /><br />
+					<h5 style="color: blue">Number of rows : <span id="total_records" style="color: red"></span></h5>
           			<table class="table table-striped table-bordered">
-          				<thead>
+          				<thead style="color: red">
               				<tr>
-              					<th>Customer Name</th>
-				                <th>Address</th>
-				                <th>City</th>
-				                <th>Postal Code</th>
-				                <th>Country</th>
+              					<th>Name</th>
+				                <th>Price</th>
+				                <th>Bedrooms</th>
+				                <th>Bathrooms</th>
+				                <th>Storeys</th>
+				                <th>Garages</th>
 				            </tr>
 				        </thead>
-            			<tbody>
-
-            			</tbody>
+            			<tbody></tbody>
             		</table>
         		</div>
       		</div>    
@@ -42,14 +41,14 @@
 <script>
 $(document).ready(function(){
 
-	fetch_customer_data();
+	fetch_stock_data();
 
-  	function fetch_customer_data(query = '')
+  	function fetch_stock_data(dataQuery = '')
   	{
 	    $.ajax({
 	      	url:"{{ route('db_search.searchDB') }}",
 	      	method:'GET',
-	      	data:{query:query},
+	      	data:{dataQuery:dataQuery},
 	      	dataType:'json',
 	      	success:function(data)
 	      	{
@@ -60,8 +59,8 @@ $(document).ready(function(){
   	}
 
   	$(document).on('keyup', '#search', function(){
-    	var query = $(this).val();
-    	fetch_customer_data(query);
+    	var dataQuery = $(this).val();
+    	fetch_stock_data(dataQuery);
   	});
 });
 </script>
