@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 
-class DbSearchController extends Controller
+class DbSearch extends Controller
 {
     public function getHome()
     {
