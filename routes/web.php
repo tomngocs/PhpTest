@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('db_search', 'DbSearch@getHome');
+Route::get('db_search/searchDB', 'DbSearch@searchDB')->name('db_search.searchDB');
